@@ -20,6 +20,7 @@ type Product = {
   price: number;
   in_stock: number;
   description?: string;
+  sales_type?:string;
 };
 
 type Customer = {
@@ -45,7 +46,7 @@ export default function POSPage() {
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
   const productOptions = products.map(p => ({
     ...p,
-    label: `${p.name} - ${p.description || 'No description'}${p.in_stock === 0 ? ' (Out of Stock)' : ''}`,
+    label: `${p.name} - ${p.description || 'No description'}- ${p.sales_type || 'No Sales Type'} ${p.in_stock === 0 ? ' (Out of Stock)' : ''}`,
     disabled: p.in_stock === 0,
   }));
 
@@ -219,6 +220,9 @@ export default function POSPage() {
                     <div className="font-semibold">{product.name}</div>
                     {product.description && (
                       <div className="text-sm text-muted-foreground">{product.description}</div>
+                    )}
+                    {product.sales_type && (
+                      <div className="text-sm text-muted-foreground">{product.sales_type}</div>
                     )}
                   </TableCell>
                   <TableCell>₱{product.price.toFixed(2)}</TableCell>

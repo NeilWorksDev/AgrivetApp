@@ -322,36 +322,44 @@ export default function Products() {
                     Cat Food
                   </DropdownMenuCheckboxItem>
                   <DropdownMenuCheckboxItem
-                    checked={filters.category === "other-pet-food"}
+                    checked={filters.category === "farm-supply"}
                     onCheckedChange={() =>
-                      handleFilterChange("category", "other-pet-food")
+                      handleFilterChange("category", "farm-supply")
                     }
                   >
-                    Other Pet Food
+                    Farm Supply
                   </DropdownMenuCheckboxItem>
                   <DropdownMenuCheckboxItem
-                    checked={filters.category === "dog-supplies"}
+                    checked={filters.category === "medicine"}
                     onCheckedChange={() =>
-                      handleFilterChange("category", "dog-supplies")
+                      handleFilterChange("category", "medicine")
                     }
                   >
-                    Dog Supplies
+                    Medicine
                   </DropdownMenuCheckboxItem>
                   <DropdownMenuCheckboxItem
-                    checked={filters.category === "cat-supplies"}
+                    checked={filters.category === "feeds"}
                     onCheckedChange={() =>
-                      handleFilterChange("category", "cat-supplies")
+                      handleFilterChange("category", "feeds")
                     }
                   >
-                    Cat Supplies
+                    Feeds
                   </DropdownMenuCheckboxItem>
                   <DropdownMenuCheckboxItem
-                    checked={filters.category === "other-pet-supplies"}
+                    checked={filters.category === "supplies"}
                     onCheckedChange={() =>
-                      handleFilterChange("category", "other-pet-supplies")
+                      handleFilterChange("category", "supplies")
                     }
                   >
-                    Other Pet Supplies
+                    Supplies
+                  </DropdownMenuCheckboxItem>
+                   <DropdownMenuCheckboxItem
+                    checked={filters.category === "others"}
+                    onCheckedChange={() =>
+                      handleFilterChange("category", "others")
+                    }
+                  >
+                    Others
                   </DropdownMenuCheckboxItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuCheckboxItem
@@ -390,8 +398,9 @@ export default function Products() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Product</TableHead>
                   <TableHead>Description</TableHead>
+                  <TableHead>Product</TableHead>
+                  <TableHead>Category</TableHead>
                   <TableHead>Price</TableHead>
                   <TableHead>Stock</TableHead>
                   <TableHead>Sales Type</TableHead>
@@ -401,15 +410,16 @@ export default function Products() {
               <TableBody>
   {currentProducts.length === 0 ? (
     <TableRow>
-      <TableCell colSpan={6} className="text-center py-4 text-muted-foreground">
+      <TableCell colSpan={7} className="text-center py-4 text-muted-foreground">
         Nothing to display.
       </TableCell>
     </TableRow>
   ) : (
     currentProducts.map((product) => (
       <TableRow key={product.id}>
-        <TableCell className="font-medium">{product.name}</TableCell>
         <TableCell>{product.description}</TableCell>
+        <TableCell className="font-medium">{product.name}</TableCell>
+        <TableCell>{product.category}</TableCell>
         <TableCell>₱{product.price.toFixed(2)}</TableCell>
         <TableCell>{product.in_stock}</TableCell>
         <TableCell className="capitalize">{product.sales_type}</TableCell>
@@ -420,8 +430,8 @@ export default function Products() {
               variant="ghost"
               onClick={() => {
                 setSelectedProductId(product.id);
-                setProductName(product.name);
                 setProductDescription(product.description);
+                setProductName(product.name);
                 setProductPrice(product.price);
                 setProductInStock(product.in_stock);
                 setProductCategory(product.category);
@@ -478,17 +488,6 @@ export default function Products() {
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
-                Name
-              </Label>
-              <Input
-                id="name"
-                value={productName}
-                onChange={(e) => setProductName(e.target.value)}
-                className="col-span-3"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="description" className="text-right">
                 Description
               </Label>
@@ -496,6 +495,17 @@ export default function Products() {
                 id="description"
                 value={productDescription}
                 onChange={(e) => setProductDescription(e.target.value)}
+                className="col-span-3"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="name" className="text-right">
+                Name
+              </Label>
+              <Input
+                id="name"
+                value={productName}
+                onChange={(e) => setProductName(e.target.value)}
                 className="col-span-3"
               />
             </div>
@@ -537,10 +547,11 @@ export default function Products() {
                 <SelectContent>
                   <SelectItem value="cat-food">Cat Food</SelectItem>
                   <SelectItem value="dog-food">Dog Food</SelectItem>
-                  <SelectItem value="other-pet-food">Other Pet Food</SelectItem>
-                  <SelectItem value="dog-supplies">Dog Supplies</SelectItem>
-                  <SelectItem value="cat-supplies">Cat Supplies</SelectItem>
-                  <SelectItem value="other-pet-supplies">Other Pet Supplies</SelectItem>
+                  <SelectItem value="farm-supply">Farm Supply</SelectItem>
+                  <SelectItem value="medicine">Medicine</SelectItem>
+                  <SelectItem value="feeds">Feeds</SelectItem>
+                  <SelectItem value="supplies">Supplies</SelectItem>
+                  <SelectItem value="others">Others</SelectItem>
                 </SelectContent>
               </Select>
             </div>
